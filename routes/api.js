@@ -3,7 +3,7 @@ var router = express.Router();
 
 var invites = [
     {id:0, startTime:"09/03/2016 10:00:00", endTime:"09/03/2016 11:00:00", location:"Bryant Park"},
-    {id:1, startTime:"09/03/2016 10:30:00", endTime:"09/03/2016 11:30:00", location:"wang chen table tennis club"}
+    {id:1, startTime:"09/03/2016 10:30:00", endTime:"09/03/2016 11:30:00", location:"Wang Chen Table Tennis Club"}
 ]
 
 /* GET api page. */
