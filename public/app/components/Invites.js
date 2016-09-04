@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import APIManager from '../utils/APIManager'
+import actions from '../actions/actions'
+import store from '../stores/store'
+import { connect } from 'react-redux'
 
 class Invites extends Component {
 
@@ -14,6 +17,19 @@ class Invites extends Component {
                 location: ''
 			}
 		}
+	}
+
+	componentDidMount(){
+		// console.log('componentDidMount: ')
+		APIManager.handleGet('/api/invite', null, function(err, response){
+			if (err){
+				alert(err)
+				return
+			}
+            store.dispatch(actions.invitesReceived(response.results))
+            // console.log('componentDidMount: '+JSON.stringify(response.results))
+
+		})
 	}
 
 	updateInvite(event){
@@ -39,6 +55,10 @@ class Invites extends Component {
 
 	render() {
 
+		var invitesList = this.props.invites.map(function(invite, i){
+			return <li key={invite.id}>{invite.location}</li>
+		})
+
 		return(
 			<div>
 			    <h3>This is Invites component!</h3>
@@ -48,6 +68,8 @@ class Invites extends Component {
 			    <input onChange={this.updateInvite} id="location" name="location"  placeholder="Location" type="text"/><br />
 			    <button onClick={this.submit}>Submit</button>
 
+			    {invitesList}
+
 			</div>
 
 		)
@@ -55,4 +77,11 @@ class Invites extends Component {
 
 }
 
-export default Invites
+const stateToProps = function(state){
+
+	return {
+		invites: state.inviteReducer.invitesArray
+	}
+}
+
+export default connect(stateToProps)(Invites)
