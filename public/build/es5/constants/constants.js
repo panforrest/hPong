@@ -1,0 +1,8 @@
+"use strict";
+
+module.exports = {
+
+	INVITES_RECEIVED: "INVITES_RECEIVED",
+	INVITE_CREATED: "INVITE_CREATED"
+
+};
