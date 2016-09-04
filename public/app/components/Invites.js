@@ -49,7 +49,8 @@ class Invites extends Component {
 				return
 			}
 
-			console.log('Invite Created: '+JSON.stringify(response.result))
+			// console.log('Invite Created: '+JSON.stringify(response.result))
+			store.dispatch(actions.inviteCreated(response.result))
 		})
 	}
 

@@ -18,6 +18,13 @@ export default function(state=initialState, action){
 		    newState['invitesArray'] = result
 		    return newState
 
+		case constants.INVITE_CREATED:
+		    var newState = Object.assign({}, state)
+		    var result = Object.assign([], newState.invitesArray)
+		    result.push(action.invite)
+            newState['invitesArray'] = result
+		    return newState    
+
 		default:
 		    return state
 	}

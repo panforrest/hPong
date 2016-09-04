@@ -21566,7 +21566,8 @@
 						return;
 					}
 	
-					console.log('Invite Created: ' + JSON.stringify(response.result));
+					// console.log('Invite Created: '+JSON.stringify(response.result))
+					_store2.default.dispatch(_actions2.default.inviteCreated(response.result));
 				});
 			}
 		}, {
@@ -23256,6 +23257,13 @@
 				type: _constants2.default.INVITES_RECEIVED,
 				invites: invites
 			};
+		},
+	
+		inviteCreated: function inviteCreated(invite) {
+			return {
+				type: _constants2.default.INVITE_CREATED,
+				invite: invite
+			};
 		}
 	};
 
@@ -24195,6 +24203,13 @@
 				newState['invitesArray'] = result;
 				return newState;
 	
+			case _constants2.default.INVITE_CREATED:
+				var newState = Object.assign({}, state);
+				var result = Object.assign([], newState.invitesArray);
+				result.push(action.invite);
+				newState['invitesArray'] = result;
+				return newState;
+	
 			default:
 				return state;
 		}
@@ -24219,7 +24234,8 @@
 	
 	module.exports = {
 	
-		INVITES_RECEIVED: 'INVITES_RECEIVED'
+		INVITES_RECEIVED: 'INVITES_RECEIVED',
+		INVITE_CREATED: 'INVITE_CREATED'
 	
 	};
 

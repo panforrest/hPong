@@ -6,6 +6,13 @@ export default {
 			type: constants.INVITES_RECEIVED,
 			invites: invites 
 		}	
+	},
+
+	inviteCreated: function(invite){
+		return{
+			type: constants.INVITE_CREATED,
+	        invite: invite
+        } 
 	}
 }
 
