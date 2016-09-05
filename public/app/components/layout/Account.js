@@ -32,17 +32,18 @@ class Account extends Component {
 			// 	currentUser: user
 
 			// })
-            store.dispatch(actions.currentUserReceived(response))
+            store.dispatch(actions.currentUserReceived(response.user))
 			return
 		})
 
 	}
 
 	render () {
+
 		return(
 			<div>
-			    <h3>This is Account component!</h3>
-			    {this.state.currentUser.userName}
+			    This is Account component!
+			    <h1>Hi, {this.props.currentUser.userName}</h1>
 
 
 			</div>
@@ -51,9 +52,10 @@ class Account extends Component {
 } 
 
 const stateToProps = function(state){
+	console.log('STATE TO PROPS: '+JSON.stringify(state))
 	return {
-		user: state.accountReducer.user
+		currentUser: state.accountReducer.currentUser
 	}
 }
 
-export default Account
+export default connect(stateToProps)(Account)

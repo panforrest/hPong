@@ -56,7 +56,7 @@ var Account = (function (Component) {
 					// 	currentUser: user
 
 					// })
-					store.dispatch(actions.currentUserReceived(response));
+					store.dispatch(actions.currentUserReceived(response.user));
 					return;
 				});
 			},
@@ -68,12 +68,13 @@ var Account = (function (Component) {
 				return React.createElement(
 					"div",
 					null,
+					"This is Account component!",
 					React.createElement(
-						"h3",
+						"h1",
 						null,
-						"This is Account component!"
-					),
-					this.state.currentUser.userName
+						"Hi, ",
+						this.props.currentUser.userName
+					)
 				);
 			},
 			writable: true,
@@ -85,9 +86,10 @@ var Account = (function (Component) {
 })(Component);
 
 var stateToProps = function (state) {
+	console.log("STATE TO PROPS: " + JSON.stringify(state));
 	return {
-		user: state.accountReducer.user
+		currentUser: state.accountReducer.currentUser
 	};
 };
 
-module.exports = Account;
+module.exports = connect(stateToProps)(Account);

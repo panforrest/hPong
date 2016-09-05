@@ -25307,22 +25307,24 @@
 					// 	currentUser: user
 	
 					// })
-					_store2.default.dispatch(_actions2.default.currentUserReceived(response));
+					_store2.default.dispatch(_actions2.default.currentUserReceived(response.user));
 					return;
 				});
 			}
 		}, {
 			key: 'render',
 			value: function render() {
+	
 				return _react2.default.createElement(
 					'div',
 					null,
+					'This is Account component!',
 					_react2.default.createElement(
-						'h3',
+						'h1',
 						null,
-						'This is Account component!'
-					),
-					this.state.currentUser.userName
+						'Hi, ',
+						this.props.currentUser.userName
+					)
 				);
 			}
 		}]);
@@ -25331,12 +25333,13 @@
 	}(_react.Component);
 	
 	var stateToProps = function stateToProps(state) {
+		console.log('STATE TO PROPS: ' + JSON.stringify(state));
 		return {
-			user: state.accountReducer.user
+			currentUser: state.accountReducer.currentUser
 		};
 	};
 	
-	exports.default = Account;
+	exports.default = (0, _reactRedux.connect)(stateToProps)(Account);
 
 /***/ },
 /* 211 */
@@ -25355,6 +25358,9 @@
 		switch (action.type) {
 			case _constants2.default.CURRENT_USER_RECEIVED:
 				console.log('CURRENT_USER_RECEIVED: ' + JSON.stringify(action.user));
+				var newState = Object.assign({}, state);
+				newState['currentUser'] = action.user;
+				return newState;
 	
 			default:
 				return state;
