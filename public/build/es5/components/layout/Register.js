@@ -24,6 +24,7 @@ var Register = (function (Component) {
         _get(Object.getPrototypeOf(Register.prototype), "constructor", this).call(this, props, context);
         this.updateProfile = this.updateProfile.bind(this);
         this.submit = this.submit.bind(this);
+        this.login = this.login.bind(this);
         this.state = {
             user: {
                 userName: "",
@@ -65,6 +66,24 @@ var Register = (function (Component) {
             writable: true,
             configurable: true
         },
+        login: {
+            value: function login(event) {
+                event.preventDefault();
+                // console.log('LOGIN: '+JSON.stringify(this.state.user))
+
+                APIManager.handlePost("/account/login", this.state.user, function (err, response) {
+                    if (err) {
+                        alert(err.message);
+                        return;
+                    }
+
+                    console.log("LOGIN: " + JSON.stringify(response));
+                    window.location.href = "/account";
+                });
+            },
+            writable: true,
+            configurable: true
+        },
         render: {
             value: function render() {
                 return React.createElement(
@@ -84,7 +103,16 @@ var Register = (function (Component) {
                         { onClick: this.submit },
                         "Submit"
                     ),
-                    React.createElement("br", null)
+                    React.createElement("br", null),
+                    React.createElement("input", { onChange: this.updateProfile, type: "text", id: "userName", placeholder: "User Name" }),
+                    React.createElement("br", null),
+                    React.createElement("input", { onChange: this.updateProfile, type: "text", id: "password", placeholder: "Password" }),
+                    React.createElement("br", null),
+                    React.createElement(
+                        "button",
+                        { onClick: this.login },
+                        "Login"
+                    )
                 );
             },
             writable: true,

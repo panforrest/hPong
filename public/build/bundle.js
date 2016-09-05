@@ -21603,6 +21603,7 @@
 	
 	        _this.updateProfile = _this.updateProfile.bind(_this);
 	        _this.submit = _this.submit.bind(_this);
+	        _this.login = _this.login.bind(_this);
 	        _this.state = {
 	            user: {
 	                userName: '',
@@ -21639,6 +21640,22 @@
 	            });
 	        }
 	    }, {
+	        key: 'login',
+	        value: function login(event) {
+	            event.preventDefault();
+	            // console.log('LOGIN: '+JSON.stringify(this.state.user))
+	
+	            _APIManager2.default.handlePost('/account/login', this.state.user, function (err, response) {
+	                if (err) {
+	                    alert(err.message);
+	                    return;
+	                }
+	
+	                console.log('LOGIN: ' + JSON.stringify(response));
+	                window.location.href = '/account';
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -21658,7 +21675,16 @@
 	                    { onClick: this.submit },
 	                    'Submit'
 	                ),
-	                _react2.default.createElement('br', null)
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement('input', { onChange: this.updateProfile, type: 'text', id: 'userName', placeholder: 'User Name' }),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement('input', { onChange: this.updateProfile, type: 'text', id: 'password', placeholder: 'Password' }),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement(
+	                    'button',
+	                    { onClick: this.login },
+	                    'Login'
+	                )
 	            );
 	        }
 	    }]);

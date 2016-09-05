@@ -44,7 +44,35 @@ router.get('/:action', function(req, res, next){
 
 
 	}
+})
 
+router.post('/:action', function(req, res, next){
+	var action = req.params.action
+	if (action == 'login') {
+        var credentials = req.body
+
+        profileController.get({userName: credentials.userName}, function(err, results){
+        	if (err){
+
+        		res.json({
+        			confirmation: 'fail',
+        			message: err
+        		})
+
+        		return
+        	}
+
+        	var profile = results[0]
+
+        	//ToDo: check passwrod
+
+        	req.session.user = profile.id  //install cookies to track current user
+        	res.json({
+        		confirmation: 'success',
+        		user: profile
+        	})
+        })
+	}
 })
 
 module.exports = router
