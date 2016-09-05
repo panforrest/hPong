@@ -8,6 +8,7 @@ import accountReducer from '../../reducers/accountReducer'
 class Account extends Component {
 	constructor(props, context){
 		super(props, context)
+		this.logout = this.logout.bind(this)
 		this.state = {
 			currentUser: {
 				userName:'',
@@ -38,13 +39,26 @@ class Account extends Component {
 
 	}
 
+	logout(event){
+		console.log('Logout: ')
+		APIManager.handleGet('/account/logout', null, function(err, response){
+            if (err) {
+            	alert(err.message)
+            	return
+            }
+
+            window.location.href = '/'
+		})
+
+	}
+
 	render () {
 
 		return(
 			<div>
 			    This is Account component!
 			    <h1>Hi, {this.props.currentUser.userName}</h1>
-
+                <button onClick={this.logout}>Logout</button>
 
 			</div>
 		)

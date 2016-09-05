@@ -25281,6 +25281,7 @@
 	
 			var _this = _possibleConstructorReturn(this, (Account.__proto__ || Object.getPrototypeOf(Account)).call(this, props, context));
 	
+			_this.logout = _this.logout.bind(_this);
 			_this.state = {
 				currentUser: {
 					userName: '',
@@ -25312,6 +25313,19 @@
 				});
 			}
 		}, {
+			key: 'logout',
+			value: function logout(event) {
+				console.log('Logout: ');
+				_APIManager2.default.handleGet('/account/logout', null, function (err, response) {
+					if (err) {
+						alert(err.message);
+						return;
+					}
+	
+					window.location.href = '/';
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 	
@@ -25324,6 +25338,11 @@
 						null,
 						'Hi, ',
 						this.props.currentUser.userName
+					),
+					_react2.default.createElement(
+						'button',
+						{ onClick: this.logout },
+						'Logout'
 					)
 				);
 			}
