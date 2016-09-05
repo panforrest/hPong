@@ -21643,7 +21643,7 @@
 	  }, {
 	    key: 'submit',
 	    value: function submit(event) {
-	      console.log('submit: ' + JSON.stringify(this.state.profile));
+	      // console.log('submit: '+JSON.stringify(this.state.profile))
 	      _APIManager2.default.handlePost('/api/profile', this.state.profile, function (err, response) {
 	        if (err) {
 	          alert(err.message);
@@ -21651,6 +21651,7 @@
 	        }
 	
 	        console.log('Profile Registered: ' + JSON.stringify(response.result));
+	        _store2.default.dispatch(_actions2.default.profileCreated(response.result));
 	      });
 	    }
 	  }, {
@@ -21693,6 +21694,7 @@
 	}(_react.Component);
 	
 	var stateToProps = function stateToProps(state) {
+	  console.log('STATE TO PROPS: ' + JSON.stringify(state));
 	  return {
 	    profiles: state.profileReducer.profilesArray
 	  };
@@ -21897,6 +21899,7 @@
 	      }
 	    });
 	  }
+	
 	};
 
 /***/ },
@@ -23496,6 +23499,13 @@
 				type: _constants2.default.PROFILES_RECEIVED,
 				profiles: profiles
 			};
+		},
+	
+		profileCreated: function profileCreated(profile) {
+			return {
+				type: _constants2.default.PROFILE_CREATED,
+				profile: profile
+			};
 		}
 	};
 
@@ -23510,7 +23520,8 @@
 		INVITES_RECEIVED: 'INVITES_RECEIVED',
 		INVITE_CREATED: 'INVITE_CREATED',
 	
-		PROFILES_RECEIVED: 'PROFILES_RECEIVED'
+		PROFILES_RECEIVED: 'PROFILES_RECEIVED',
+		PROFILE_CREATED: 'PROFILE_CREATED'
 	
 	};
 
@@ -25213,6 +25224,14 @@
 	                var p = action.profiles[i];
 	                array.push(p);
 	            }
+	            newState['profilesArray'] = array;
+	            return newState;
+	
+	        case _constants2.default.PROFILE_CREATED:
+	            // console.log('PROFILES CREATED: '+JSON.stringify(action.profiles))
+	            var newState = Object.assign({}, state);
+	            var array = Object.assign([], newState.profilesArray);
+	            array.push(action.profile);
 	            newState['profilesArray'] = array;
 	            return newState;
 	

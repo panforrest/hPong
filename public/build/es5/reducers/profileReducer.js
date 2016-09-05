@@ -23,6 +23,14 @@ module.exports = function (_x, action) {
             newState.profilesArray = array;
             return newState;
 
+        case constants.PROFILE_CREATED:
+            // console.log('PROFILES CREATED: '+JSON.stringify(action.profiles))
+            var newState = Object.assign({}, state);
+            var array = Object.assign([], newState.profilesArray);
+            array.push(action.profile);
+            newState.profilesArray = array;
+            return newState;
+
         default:
             return state;
     }

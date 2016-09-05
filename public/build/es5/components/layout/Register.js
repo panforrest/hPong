@@ -69,7 +69,7 @@ var Register = (function (Component) {
     },
     submit: {
       value: function submit(event) {
-        console.log("submit: " + JSON.stringify(this.state.profile));
+        // console.log('submit: '+JSON.stringify(this.state.profile))
         APIManager.handlePost("/api/profile", this.state.profile, function (err, response) {
           if (err) {
             alert(err.message);
@@ -77,6 +77,7 @@ var Register = (function (Component) {
           }
 
           console.log("Profile Registered: " + JSON.stringify(response.result));
+          store.dispatch(actions.profileCreated(response.result));
         });
       },
       writable: true,
@@ -124,6 +125,7 @@ var Register = (function (Component) {
 })(Component);
 
 var stateToProps = function (state) {
+  console.log("STATE TO PROPS: " + JSON.stringify(state));
   return {
     profiles: state.profileReducer.profilesArray
   };

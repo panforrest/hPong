@@ -45,7 +45,7 @@ class Register extends Component {
     }
 
     submit(event){
-    	console.log('submit: '+JSON.stringify(this.state.profile))
+    	// console.log('submit: '+JSON.stringify(this.state.profile))
     	APIManager.handlePost('/api/profile', this.state.profile, function(err, response){
     		if (err) {
     			alert(err.message)
@@ -53,7 +53,7 @@ class Register extends Component {
     		}
 
     		console.log('Profile Registered: '+JSON.stringify(response.result))
-
+            store.dispatch(actions.profileCreated(response.result))
     	})
     }
 
@@ -78,6 +78,7 @@ class Register extends Component {
 }
 
 const stateToProps = function(state){
+	console.log('STATE TO PROPS: '+JSON.stringify(state))
 	return{
 		profiles: state.profileReducer.profilesArray
 	}

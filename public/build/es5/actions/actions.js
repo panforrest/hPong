@@ -24,5 +24,12 @@ module.exports = {
 			type: constants.PROFILES_RECEIVED,
 			profiles: profiles
 		};
+	},
+
+	profileCreated: function (profile) {
+		return {
+			type: constants.PROFILE_CREATED,
+			profile: profile
+		};
 	}
 };
