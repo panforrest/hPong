@@ -17,6 +17,13 @@ var React = _interopRequire(_react);
 var Component = _react.Component;
 var APIManager = _interopRequire(require("../../utils/APIManager"));
 
+var store = _interopRequire(require("../../stores/store"));
+
+var actions = _interopRequire(require("../../actions/actions"));
+
+var connect = require("react-redux").connect;
+var accountReducer = _interopRequire(require("../../reducers/accountReducer"));
+
 var Account = (function (Component) {
 	function Account(props, context) {
 		_classCallCheck(this, Account);
@@ -36,7 +43,7 @@ var Account = (function (Component) {
 	_prototypeProperties(Account, null, {
 		componentDidMount: {
 			value: function componentDidMount() {
-				var _this = this;
+				// var _this = this
 				APIManager.handleGet("/account/currentuser", null, function (err, response) {
 					if (err) {
 						alert(err.message);
@@ -44,11 +51,12 @@ var Account = (function (Component) {
 					}
 
 					console.log(JSON.stringify(response));
-					var user = response.user;
-					_this.setState({
-						currentUser: user
+					// var user = response.user
+					// _this.setState({
+					// 	currentUser: user
 
-					});
+					// })
+					store.dispatch(actions.currentUserReceived(response));
 					return;
 				});
 			},
@@ -75,5 +83,11 @@ var Account = (function (Component) {
 
 	return Account;
 })(Component);
+
+var stateToProps = function (state) {
+	return {
+		user: state.accountReducer.user
+	};
+};
 
 module.exports = Account;

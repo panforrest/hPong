@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import APIManager from '../../utils/APIManager'
+import store from '../../stores/store'
+import actions from '../../actions/actions'
+import { connect } from 'react-redux'
+import accountReducer from '../../reducers/accountReducer'
 
 class Account extends Component {
 	constructor(props, context){
@@ -15,7 +19,7 @@ class Account extends Component {
 	}
 
 	componentDidMount(){
-		var _this = this
+		// var _this = this
 		APIManager.handleGet('/account/currentuser', null, function(err, response){
 			if (err) {
 				alert(err.message)
@@ -23,11 +27,12 @@ class Account extends Component {
 			}
 
 			console.log(JSON.stringify(response))
-			var user = response.user
-			_this.setState({
-				currentUser: user
+			// var user = response.user
+			// _this.setState({
+			// 	currentUser: user
 
-			})
+			// })
+            store.dispatch(actions.currentUserReceived(response))
 			return
 		})
 
@@ -44,5 +49,11 @@ class Account extends Component {
 		)
 	}
 } 
+
+const stateToProps = function(state){
+	return {
+		user: state.accountReducer.user
+	}
+}
 
 export default Account

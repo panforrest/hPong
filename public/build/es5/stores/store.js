@@ -13,9 +13,12 @@ var inviteReducer = _interopRequire(require("../reducers/inviteReducer"));
 
 var profileReducer = _interopRequire(require("../reducers/profileReducer"));
 
+var accountReducer = _interopRequire(require("../reducers/accountReducer"));
+
 var reducers = combineReducers({
 	inviteReducer: inviteReducer,
-	profileReducer: profileReducer
+	profileReducer: profileReducer,
+	accountReducer: accountReducer
 });
 
 var store = createStore(reducers, applyMiddleware(thunk));

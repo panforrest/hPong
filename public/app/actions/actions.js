@@ -27,6 +27,13 @@ export default {
 			type: constants.PROFILE_CREATED,
 			profile: profile
 		}
+	},
+
+	currentUserReceived: function(user){
+		return {
+			type: constants.CURRENT_USER_RECEIVED,
+			user: user
+		}
 	}
 }
 

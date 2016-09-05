@@ -23310,11 +23310,16 @@
 	
 	var _profileReducer2 = _interopRequireDefault(_profileReducer);
 	
+	var _accountReducer = __webpack_require__(211);
+	
+	var _accountReducer2 = _interopRequireDefault(_accountReducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var reducers = (0, _redux.combineReducers)({
 		inviteReducer: _inviteReducer2.default,
-		profileReducer: _profileReducer2.default
+		profileReducer: _profileReducer2.default,
+		accountReducer: _accountReducer2.default
 	});
 	
 	var store = (0, _redux.createStore)(reducers, (0, _redux.applyMiddleware)(_reduxThunk2.default));
@@ -24262,7 +24267,9 @@
 		INVITE_CREATED: 'INVITE_CREATED',
 	
 		PROFILES_RECEIVED: 'PROFILES_RECEIVED',
-		PROFILE_CREATED: 'PROFILE_CREATED'
+		PROFILE_CREATED: 'PROFILE_CREATED',
+	
+		CURRENT_USER_RECEIVED: 'CURRENT_USER_RECEIVED'
 	
 	};
 
@@ -24358,6 +24365,13 @@
 			return {
 				type: _constants2.default.PROFILE_CREATED,
 				profile: profile
+			};
+		},
+	
+		currentUserReceived: function currentUserReceived(user) {
+			return {
+				type: _constants2.default.CURRENT_USER_RECEIVED,
+				user: user
 			};
 		}
 	};
@@ -25237,6 +25251,20 @@
 	
 	var _APIManager2 = _interopRequireDefault(_APIManager);
 	
+	var _store = __webpack_require__(180);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _actions = __webpack_require__(199);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	var _reactRedux = __webpack_require__(200);
+	
+	var _accountReducer = __webpack_require__(211);
+	
+	var _accountReducer2 = _interopRequireDefault(_accountReducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25251,22 +25279,22 @@
 		function Account(props, context) {
 			_classCallCheck(this, Account);
 	
-			var _this2 = _possibleConstructorReturn(this, (Account.__proto__ || Object.getPrototypeOf(Account)).call(this, props, context));
+			var _this = _possibleConstructorReturn(this, (Account.__proto__ || Object.getPrototypeOf(Account)).call(this, props, context));
 	
-			_this2.state = {
+			_this.state = {
 				currentUser: {
 					userName: '',
 					password: ''
 				}
 			};
 	
-			return _this2;
+			return _this;
 		}
 	
 		_createClass(Account, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				var _this = this;
+				// var _this = this
 				_APIManager2.default.handleGet('/account/currentuser', null, function (err, response) {
 					if (err) {
 						alert(err.message);
@@ -25274,11 +25302,12 @@
 					}
 	
 					console.log(JSON.stringify(response));
-					var user = response.user;
-					_this.setState({
-						currentUser: user
+					// var user = response.user
+					// _this.setState({
+					// 	currentUser: user
 	
-					});
+					// })
+					_store2.default.dispatch(_actions2.default.currentUserReceived(response));
 					return;
 				});
 			}
@@ -25301,7 +25330,49 @@
 		return Account;
 	}(_react.Component);
 	
+	var stateToProps = function stateToProps(state) {
+		return {
+			user: state.accountReducer.user
+		};
+	};
+	
 	exports.default = Account;
+
+/***/ },
+/* 211 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	exports.default = function () {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+		var action = arguments[1];
+	
+		switch (action.type) {
+			case _constants2.default.CURRENT_USER_RECEIVED:
+				console.log('CURRENT_USER_RECEIVED: ' + JSON.stringify(action.user));
+	
+			default:
+				return state;
+		}
+	};
+	
+	var _constants = __webpack_require__(197);
+	
+	var _constants2 = _interopRequireDefault(_constants);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var initialState = {
+		currentUser: {
+			userName: '',
+			password: ''
+		}
+	};
 
 /***/ }
 /******/ ]);
