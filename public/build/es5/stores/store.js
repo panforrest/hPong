@@ -11,8 +11,11 @@ var thunk = _interopRequire(require("redux-thunk"));
 
 var inviteReducer = _interopRequire(require("../reducers/inviteReducer"));
 
+var profileReducer = _interopRequire(require("../reducers/profileReducer"));
+
 var reducers = combineReducers({
-	inviteReducer: inviteReducer
+	inviteReducer: inviteReducer,
+	profileReducer: profileReducer
 });
 
 var store = createStore(reducers, applyMiddleware(thunk));

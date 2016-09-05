@@ -21566,7 +21566,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -21574,6 +21574,20 @@
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _APIManager = __webpack_require__(175);
+	
+	var _APIManager2 = _interopRequireDefault(_APIManager);
+	
+	var _store = __webpack_require__(183);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _actions = __webpack_require__(181);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	var _reactRedux = __webpack_require__(200);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21584,29 +21598,107 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var Register = function (_Component) {
-		_inherits(Register, _Component);
+	  _inherits(Register, _Component);
 	
-		function Register() {
-			_classCallCheck(this, Register);
+	  function Register(props, context) {
+	    _classCallCheck(this, Register);
 	
-			return _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).apply(this, arguments));
-		}
+	    var _this = _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).call(this, props, context));
 	
-		_createClass(Register, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					null,
-					'Register page'
-				);
-			}
-		}]);
+	    _this.updateProfile = _this.updateProfile.bind(_this);
+	    _this.submit = _this.submit.bind(_this);
+	    _this.state = {
+	      profile: {
+	        userName: '',
+	        password: ''
+	      }
+	    };
+	    return _this;
+	  }
 	
-		return Register;
+	  _createClass(Register, [{
+	    key: 'updateProfile',
+	    value: function updateProfile(event) {
+	      console.log('updateProfile: ' + event.target.id + ' == ' + event.target.value);
+	      var updatedProfile = Object.assign({}, this.state.profile);
+	      updatedProfile[event.target.id] = event.target.value;
+	      this.setState({
+	        profile: updatedProfile
+	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      // console.log('componentDidMount: ')
+	      _APIManager2.default.handleGet('/api/profile', null, function (err, response) {
+	        if (err) {
+	          alert(err.message);
+	          return;
+	        }
+	
+	        console.log('componentDidMount: ' + JSON.stringify(response.results));
+	        _store2.default.dispatch(_actions2.default.profilesReceived(response.results));
+	      });
+	    }
+	  }, {
+	    key: 'submit',
+	    value: function submit(event) {
+	      console.log('submit: ' + JSON.stringify(this.state.profile));
+	      _APIManager2.default.handlePost('/api/profile', this.state.profile, function (err, response) {
+	        if (err) {
+	          alert(err.message);
+	          return;
+	        }
+	
+	        console.log('Profile Registered: ' + JSON.stringify(response.result));
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var profileList = this.props.profiles.map(function (profile, i) {
+	        return _react2.default.createElement(
+	          'li',
+	          { key: profile.id },
+	          profile.userName,
+	          ' ',
+	          profile.password
+	        );
+	      });
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Register page'
+	        ),
+	        _react2.default.createElement('input', { onChange: this.updateProfile, type: 'text', id: 'userName', placeholder: 'User Name' }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement('input', { onChange: this.updateProfile, type: 'text', id: 'password', placeholder: 'Password' }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.submit },
+	          'Submit'
+	        ),
+	        _react2.default.createElement('br', null),
+	        profileList
+	      );
+	    }
+	  }]);
+	
+	  return Register;
 	}(_react.Component);
 	
-	exports.default = Register;
+	var stateToProps = function stateToProps(state) {
+	  return {
+	    profiles: state.profileReducer.profilesArray
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps)(Register);
 
 /***/ },
 /* 174 */
@@ -23397,6 +23489,13 @@
 				type: _constants2.default.INVITE_CREATED,
 				invite: invite
 			};
+		},
+	
+		profilesReceived: function profilesReceived(profiles) {
+			return {
+				type: _constants2.default.PROFILES_RECEIVED,
+				profiles: profiles
+			};
 		}
 	};
 
@@ -23409,7 +23508,9 @@
 	module.exports = {
 	
 		INVITES_RECEIVED: 'INVITES_RECEIVED',
-		INVITE_CREATED: 'INVITE_CREATED'
+		INVITE_CREATED: 'INVITE_CREATED',
+	
+		PROFILES_RECEIVED: 'PROFILES_RECEIVED'
 	
 	};
 
@@ -23433,10 +23534,15 @@
 	
 	var _inviteReducer2 = _interopRequireDefault(_inviteReducer);
 	
+	var _profileReducer = __webpack_require__(209);
+	
+	var _profileReducer2 = _interopRequireDefault(_profileReducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var reducers = (0, _redux.combineReducers)({
-		inviteReducer: _inviteReducer2.default
+		inviteReducer: _inviteReducer2.default,
+		profileReducer: _profileReducer2.default
 	});
 	
 	var store = (0, _redux.createStore)(reducers, (0, _redux.applyMiddleware)(_reduxThunk2.default));
@@ -25083,6 +25189,48 @@
 	module.exports = invariant;
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 209 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function () {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+	    var action = arguments[1];
+	
+	    switch (action.type) {
+	        case _constants2.default.PROFILES_RECEIVED:
+	            console.log('PROFILES RECEIVED: ' + JSON.stringify(action.profiles));
+	            var newState = Object.assign({}, state);
+	            var array = [];
+	            for (var i = 0; i < action.profiles.length; i++) {
+	                var p = action.profiles[i];
+	                array.push(p);
+	            }
+	            newState['profilesArray'] = array;
+	            return newState;
+	
+	        default:
+	            return state;
+	    }
+	};
+	
+	var _constants = __webpack_require__(182);
+	
+	var _constants2 = _interopRequireDefault(_constants);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var initialState = {
+	    profiles: {},
+	    profilesArray: []
+	};
 
 /***/ }
 /******/ ]);

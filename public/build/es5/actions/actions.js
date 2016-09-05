@@ -17,5 +17,12 @@ module.exports = {
 			type: constants.INVITE_CREATED,
 			invite: invite
 		};
+	},
+
+	profilesReceived: function (profiles) {
+		return {
+			type: constants.PROFILES_RECEIVED,
+			profiles: profiles
+		};
 	}
 };
