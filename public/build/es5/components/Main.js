@@ -17,45 +17,49 @@ var Register = _interopRequire(require("./layout/Register"));
 
 var Invites = _interopRequire(require("./Invites"));
 
+var Account = _interopRequire(require("./layout/Account"));
+
 var Main = (function (Component) {
-	function Main() {
-		_classCallCheck(this, Main);
+  function Main() {
+    _classCallCheck(this, Main);
 
-		if (Component != null) {
-			Component.apply(this, arguments);
-		}
-	}
+    if (Component != null) {
+      Component.apply(this, arguments);
+    }
+  }
 
-	_inherits(Main, Component);
+  _inherits(Main, Component);
 
-	_prototypeProperties(Main, null, {
-		componentDidMount: {
-			value: function componentDidMount() {
-				console.log("Main: " + this.props.page);
-			},
-			writable: true,
-			configurable: true
-		},
-		render: {
-			value: function render() {
-				var content = null;
-				var page = this.props.page;
-				if (page == "home") content = React.createElement(Invites, null);
+  _prototypeProperties(Main, null, {
+    componentDidMount: {
+      value: function componentDidMount() {
+        console.log("Main: " + this.props.page);
+      },
+      writable: true,
+      configurable: true
+    },
+    render: {
+      value: function render() {
+        var content = null;
+        var page = this.props.page;
+        if (page == "home") content = React.createElement(Invites, null);
 
-				if (page == "register") content = React.createElement(Register, null);
+        if (page == "register") content = React.createElement(Register, null);
 
-				return React.createElement(
-					"div",
-					null,
-					content
-				);
-			},
-			writable: true,
-			configurable: true
-		}
-	});
+        if (page == "account") content = React.createElement(Account, null);
 
-	return Main;
+        return React.createElement(
+          "div",
+          null,
+          content
+        );
+      },
+      writable: true,
+      configurable: true
+    }
+  });
+
+  return Main;
 })(Component);
 
 module.exports = Main;

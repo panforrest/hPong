@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Register from './layout/Register'
 import Invites from './Invites'
+import Account from './layout/Account'
 
 class Main extends Component {
 
@@ -16,6 +17,9 @@ class Main extends Component {
 
         if (page == 'register')
         	content = <Register />
+
+        if (page == 'account')
+        	content = <Account />
 
 		return(
 			<div>
