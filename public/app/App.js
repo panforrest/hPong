@@ -15,7 +15,6 @@ class App extends Component {
     componentWillMount(){       //I am not sure what is doing in here
     	var path = window.location.pathname.replace('/', '');
     	console.log('componentWillMount: '+path)
-
     	var page = 'home'
     	if (path.length>0){
     		var parts = path.split('/')
@@ -35,4 +34,10 @@ class App extends Component {
 	}
 }
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('app'))
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>, 
+
+    document.getElementById('app')
+)

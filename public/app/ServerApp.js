@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import store from './stores/store'
-import Main from './compoennts/Main'
+import Main from './components/Main'
 import { Provider } from 'react-redux' 
 
 class App extends Component {
@@ -8,7 +8,7 @@ class App extends Component {
 	render(){
 		return(
 			<Provider store={store}>
-			    <Mian />
+			    <Main />
 
             </Provider>
 		)

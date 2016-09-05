@@ -13,6 +13,8 @@ var _react = require("react");
 var React = _interopRequire(_react);
 
 var Component = _react.Component;
+var Register = _interopRequire(require("./layout/Register"));
+
 var Invites = _interopRequire(require("./Invites"));
 
 var Main = (function (Component) {
@@ -36,10 +38,16 @@ var Main = (function (Component) {
 		},
 		render: {
 			value: function render() {
+				var content = null;
+				var page = this.props.page;
+				if (page == "home") content = React.createElement(Invites, null);
+
+				if (page == "register") content = React.createElement(Register, null);
+
 				return React.createElement(
 					"div",
 					null,
-					React.createElement(Invites, null)
+					content
 				);
 			},
 			writable: true,

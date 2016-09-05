@@ -13,29 +13,24 @@ var _react = require("react");
 var React = _interopRequire(_react);
 
 var Component = _react.Component;
-var store = _interopRequire(require("./stores/store"));
-
-var Main = _interopRequire(require("./components/Main"));
-
-var Provider = require("react-redux").Provider;
-var App = (function (Component) {
-	function App() {
-		_classCallCheck(this, App);
+var Register = (function (Component) {
+	function Register() {
+		_classCallCheck(this, Register);
 
 		if (Component != null) {
 			Component.apply(this, arguments);
 		}
 	}
 
-	_inherits(App, Component);
+	_inherits(Register, Component);
 
-	_prototypeProperties(App, null, {
+	_prototypeProperties(Register, null, {
 		render: {
 			value: function render() {
 				return React.createElement(
-					Provider,
-					{ store: store },
-					React.createElement(Main, null)
+					"div",
+					null,
+					"Register page"
 				);
 			},
 			writable: true,
@@ -43,7 +38,7 @@ var App = (function (Component) {
 		}
 	});
 
-	return App;
+	return Register;
 })(Component);
 
-module.exports = App;
+module.exports = Register;
