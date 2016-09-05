@@ -37,6 +37,7 @@ router.get('/:resource', function(req, res, next) {
 });
 
 router.get('/:resource/:id', function(req, res, next) {
+
     var resource = req.params.resource
     var id = req.params.id
 
@@ -62,7 +63,6 @@ router.get('/:resource/:id', function(req, res, next) {
     		confirmation: 'success',
     		result: result
     	})
-
     })
 });
 
@@ -71,7 +71,6 @@ router.post('/:resource', function(req, res, next) {
 
 	var resource = req.params.resource
 	var controller = controllers[resource]
-
 	if (controller == null) {
 		res.json({
 			confirmation: 'fail',
@@ -92,6 +91,7 @@ router.post('/:resource', function(req, res, next) {
         if (resource == 'profile') {         //install cookies !!
             req.session.user = result.id
         }
+        
 
         res.json({
         	confirmation:'success',

@@ -34,7 +34,7 @@ module.exports = {
   },
 
   handlePut: function (endpoint, body, completion) {
-    superagent.put(endpoint).send(body).set("Accept", "applicaiton/json").end(function (err, res) {
+    superagent.put(endpoint).send(body).set("Accept", "application/json").end(function (err, res) {
       if (err) {
         if (completion != null) completion(err, null);
       } else {

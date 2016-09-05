@@ -48,7 +48,7 @@ export default {
     	superagent
     	.put(endpoint)
     	.send(body)
-    	.set('Accept', 'applicaiton/json')
+    	.set('Accept', 'application/json')
     	.end(function(err, res){
     		if (err){
     			if (completion != null)

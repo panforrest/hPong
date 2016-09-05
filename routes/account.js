@@ -18,12 +18,20 @@ router.get('/:action', function(req, res, next){
             return
 		}
 
-		res.json({
-			confirmation:'success',
-			user:req.session.user
+		profileController.get({id: req.session.user}, function(err, result){
+			if (err) {
+				res.json({confirmation:'fail', message: 'user not found'})
+			}
+
+			res.json({
+				confirmation:'success',
+				user:result
+			})
+			return
+
 		})
 
-		return
+
 	}
 
 })
