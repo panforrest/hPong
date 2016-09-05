@@ -60,8 +60,8 @@ var Register = (function (Component) {
             return;
           }
 
-          console.log("componentDidMount: " + JSON.stringify(response.results));
-          store.dispatch(actions.profilesReceived(response.results));
+          //console.log('componentDidMount: '+JSON.stringify(response.results))
+          //store.dispatch(actions.profilesReceived(response.results))
         });
       },
       writable: true,
@@ -77,7 +77,8 @@ var Register = (function (Component) {
           }
 
           console.log("Profile Registered: " + JSON.stringify(response.result));
-          store.dispatch(actions.profileCreated(response.result));
+          //store.dispatch(actions.profileCreated(response.result))
+          window.location.href = "/account";
         });
       },
       writable: true,

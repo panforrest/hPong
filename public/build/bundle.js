@@ -62,7 +62,7 @@
 	
 	var _reactRedux = __webpack_require__(200);
 	
-	var _store = __webpack_require__(183);
+	var _store = __webpack_require__(180);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
@@ -21511,7 +21511,7 @@
 	
 	var _Register2 = _interopRequireDefault(_Register);
 	
-	var _Invites = __webpack_require__(174);
+	var _Invites = __webpack_require__(209);
 	
 	var _Invites2 = _interopRequireDefault(_Invites);
 	
@@ -21581,15 +21581,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _APIManager = __webpack_require__(175);
+	var _APIManager = __webpack_require__(174);
 	
 	var _APIManager2 = _interopRequireDefault(_APIManager);
 	
-	var _store = __webpack_require__(183);
+	var _store = __webpack_require__(180);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _actions = __webpack_require__(181);
+	var _actions = __webpack_require__(199);
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
@@ -21642,8 +21642,8 @@
 	          return;
 	        }
 	
-	        console.log('componentDidMount: ' + JSON.stringify(response.results));
-	        _store2.default.dispatch(_actions2.default.profilesReceived(response.results));
+	        //console.log('componentDidMount: '+JSON.stringify(response.results))
+	        //store.dispatch(actions.profilesReceived(response.results))
 	      });
 	    }
 	  }, {
@@ -21657,7 +21657,8 @@
 	        }
 	
 	        console.log('Profile Registered: ' + JSON.stringify(response.result));
-	        _store2.default.dispatch(_actions2.default.profileCreated(response.result));
+	        //store.dispatch(actions.profileCreated(response.result))
+	        window.location.href = '/account';
 	      });
 	    }
 	  }, {
@@ -21715,153 +21716,10 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _APIManager = __webpack_require__(175);
-	
-	var _APIManager2 = _interopRequireDefault(_APIManager);
-	
-	var _actions = __webpack_require__(181);
-	
-	var _actions2 = _interopRequireDefault(_actions);
-	
-	var _store = __webpack_require__(183);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	var _reactRedux = __webpack_require__(200);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Invites = function (_Component) {
-		_inherits(Invites, _Component);
-	
-		function Invites(props, context) {
-			_classCallCheck(this, Invites);
-	
-			var _this = _possibleConstructorReturn(this, (Invites.__proto__ || Object.getPrototypeOf(Invites)).call(this, props, context));
-	
-			_this.updateInvite = _this.updateInvite.bind(_this);
-			_this.submit = _this.submit.bind(_this);
-			_this.state = {
-				invite: {
-					startTime: '',
-					endTime: '',
-					location: ''
-				}
-			};
-			return _this;
-		}
-	
-		_createClass(Invites, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				// console.log('componentDidMount: ')
-				_APIManager2.default.handleGet('/api/invite', null, function (err, response) {
-					if (err) {
-						alert(err);
-						return;
-					}
-					_store2.default.dispatch(_actions2.default.invitesReceived(response.results));
-					// console.log('componentDidMount: '+JSON.stringify(response.results))
-				});
-			}
-		}, {
-			key: 'updateInvite',
-			value: function updateInvite(event) {
-				console.log('updateInvite: ' + event.target.id + ' -- ' + event.target.value);
-				var updatedInvite = Object.assign({}, this.state.invite);
-				updatedInvite[event.target.id] = event.target.value;
-				this.setState({
-					invite: updatedInvite
-				});
-			}
-		}, {
-			key: 'submit',
-			value: function submit() {
-				//console.log('submit: '+JSON.stringify(this.state.invite))
-				_APIManager2.default.handlePost('/api/invite', this.state.invite, function (err, response) {
-					if (err) {
-						alert(err);
-						return;
-					}
-	
-					// console.log('Invite Created: '+JSON.stringify(response.result))
-					_store2.default.dispatch(_actions2.default.inviteCreated(response.result));
-				});
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-	
-				var invitesList = this.props.invites.map(function (invite, i) {
-					return _react2.default.createElement(
-						'li',
-						{ key: invite.id },
-						invite.location
-					);
-				});
-	
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'h3',
-						null,
-						'This is Invites component!'
-					),
-					_react2.default.createElement('input', { onChange: this.updateInvite, id: 'startTime', name: 'startTime', placeholder: 'Start time', type: 'text' }),
-					_react2.default.createElement('br', null),
-					_react2.default.createElement('input', { onChange: this.updateInvite, id: 'endTime', name: 'endTime', placeholder: 'End time', type: 'text' }),
-					_react2.default.createElement('br', null),
-					_react2.default.createElement('input', { onChange: this.updateInvite, id: 'location', name: 'location', placeholder: 'Location', type: 'text' }),
-					_react2.default.createElement('br', null),
-					_react2.default.createElement(
-						'button',
-						{ onClick: this.submit },
-						'Submit'
-					),
-					invitesList
-				);
-			}
-		}]);
-	
-		return Invites;
-	}(_react.Component);
-	
-	var stateToProps = function stateToProps(state) {
-	
-		return {
-			invites: state.inviteReducer.invitesArray
-		};
-	};
-	
-	exports.default = (0, _reactRedux.connect)(stateToProps)(Invites);
-
-/***/ },
-/* 175 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	var _superagent = __webpack_require__(176);
+	var _superagent = __webpack_require__(175);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
@@ -21909,7 +21767,7 @@
 	};
 
 /***/ },
-/* 176 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21926,9 +21784,9 @@
 	  root = this;
 	}
 	
-	var Emitter = __webpack_require__(177);
-	var requestBase = __webpack_require__(178);
-	var isObject = __webpack_require__(179);
+	var Emitter = __webpack_require__(176);
+	var requestBase = __webpack_require__(177);
+	var isObject = __webpack_require__(178);
 	
 	/**
 	 * Noop.
@@ -21940,7 +21798,7 @@
 	 * Expose `request`.
 	 */
 	
-	var request = module.exports = __webpack_require__(180).bind(null, Request);
+	var request = module.exports = __webpack_require__(179).bind(null, Request);
 	
 	/**
 	 * Determine XHR.
@@ -22891,7 +22749,7 @@
 
 
 /***/ },
-/* 177 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -23060,13 +22918,13 @@
 
 
 /***/ },
-/* 178 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(179);
+	var isObject = __webpack_require__(178);
 	
 	/**
 	 * Clear previous timeout.
@@ -23413,7 +23271,7 @@
 
 
 /***/ },
-/* 179 */
+/* 178 */
 /***/ function(module, exports) {
 
 	/**
@@ -23432,7 +23290,7 @@
 
 
 /***/ },
-/* 180 */
+/* 179 */
 /***/ function(module, exports) {
 
 	// The node and browser modules expose versions of this with the
@@ -23470,7 +23328,7 @@
 
 
 /***/ },
-/* 181 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23479,79 +23337,17 @@
 		value: true
 	});
 	
-	var _constants = __webpack_require__(182);
+	var _redux = __webpack_require__(181);
 	
-	var _constants2 = _interopRequireDefault(_constants);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = {
-		invitesReceived: function invitesReceived(invites) {
-			return {
-				type: _constants2.default.INVITES_RECEIVED,
-				invites: invites
-			};
-		},
-	
-		inviteCreated: function inviteCreated(invite) {
-			return {
-				type: _constants2.default.INVITE_CREATED,
-				invite: invite
-			};
-		},
-	
-		profilesReceived: function profilesReceived(profiles) {
-			return {
-				type: _constants2.default.PROFILES_RECEIVED,
-				profiles: profiles
-			};
-		},
-	
-		profileCreated: function profileCreated(profile) {
-			return {
-				type: _constants2.default.PROFILE_CREATED,
-				profile: profile
-			};
-		}
-	};
-
-/***/ },
-/* 182 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = {
-	
-		INVITES_RECEIVED: 'INVITES_RECEIVED',
-		INVITE_CREATED: 'INVITE_CREATED',
-	
-		PROFILES_RECEIVED: 'PROFILES_RECEIVED',
-		PROFILE_CREATED: 'PROFILE_CREATED'
-	
-	};
-
-/***/ },
-/* 183 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _redux = __webpack_require__(184);
-	
-	var _reduxThunk = __webpack_require__(198);
+	var _reduxThunk = __webpack_require__(195);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _inviteReducer = __webpack_require__(199);
+	var _inviteReducer = __webpack_require__(196);
 	
 	var _inviteReducer2 = _interopRequireDefault(_inviteReducer);
 	
-	var _profileReducer = __webpack_require__(209);
+	var _profileReducer = __webpack_require__(198);
 	
 	var _profileReducer2 = _interopRequireDefault(_profileReducer);
 	
@@ -23567,7 +23363,7 @@
 	exports.default = store;
 
 /***/ },
-/* 184 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -23575,27 +23371,27 @@
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 	
-	var _createStore = __webpack_require__(185);
+	var _createStore = __webpack_require__(182);
 	
 	var _createStore2 = _interopRequireDefault(_createStore);
 	
-	var _combineReducers = __webpack_require__(193);
+	var _combineReducers = __webpack_require__(190);
 	
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 	
-	var _bindActionCreators = __webpack_require__(195);
+	var _bindActionCreators = __webpack_require__(192);
 	
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 	
-	var _applyMiddleware = __webpack_require__(196);
+	var _applyMiddleware = __webpack_require__(193);
 	
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 	
-	var _compose = __webpack_require__(197);
+	var _compose = __webpack_require__(194);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
-	var _warning = __webpack_require__(194);
+	var _warning = __webpack_require__(191);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -23619,7 +23415,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 185 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23628,11 +23424,11 @@
 	exports.ActionTypes = undefined;
 	exports["default"] = createStore;
 	
-	var _isPlainObject = __webpack_require__(186);
+	var _isPlainObject = __webpack_require__(183);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _symbolObservable = __webpack_require__(191);
+	var _symbolObservable = __webpack_require__(188);
 	
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 	
@@ -23886,12 +23682,12 @@
 	}
 
 /***/ },
-/* 186 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getPrototype = __webpack_require__(187),
-	    isHostObject = __webpack_require__(189),
-	    isObjectLike = __webpack_require__(190);
+	var getPrototype = __webpack_require__(184),
+	    isHostObject = __webpack_require__(186),
+	    isObjectLike = __webpack_require__(187);
 	
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -23962,10 +23758,10 @@
 
 
 /***/ },
-/* 187 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(188);
+	var overArg = __webpack_require__(185);
 	
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -23974,7 +23770,7 @@
 
 
 /***/ },
-/* 188 */
+/* 185 */
 /***/ function(module, exports) {
 
 	/**
@@ -23995,7 +23791,7 @@
 
 
 /***/ },
-/* 189 */
+/* 186 */
 /***/ function(module, exports) {
 
 	/**
@@ -24021,7 +23817,7 @@
 
 
 /***/ },
-/* 190 */
+/* 187 */
 /***/ function(module, exports) {
 
 	/**
@@ -24056,18 +23852,18 @@
 
 
 /***/ },
-/* 191 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
 	'use strict';
 	
-	module.exports = __webpack_require__(192)(global || window || this);
+	module.exports = __webpack_require__(189)(global || window || this);
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 192 */
+/* 189 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24092,7 +23888,7 @@
 
 
 /***/ },
-/* 193 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -24100,13 +23896,13 @@
 	exports.__esModule = true;
 	exports["default"] = combineReducers;
 	
-	var _createStore = __webpack_require__(185);
+	var _createStore = __webpack_require__(182);
 	
-	var _isPlainObject = __webpack_require__(186);
+	var _isPlainObject = __webpack_require__(183);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _warning = __webpack_require__(194);
+	var _warning = __webpack_require__(191);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -24225,7 +24021,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 194 */
+/* 191 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24255,7 +24051,7 @@
 	}
 
 /***/ },
-/* 195 */
+/* 192 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24311,7 +24107,7 @@
 	}
 
 /***/ },
-/* 196 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24322,7 +24118,7 @@
 	
 	exports["default"] = applyMiddleware;
 	
-	var _compose = __webpack_require__(197);
+	var _compose = __webpack_require__(194);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
@@ -24374,7 +24170,7 @@
 	}
 
 /***/ },
-/* 197 */
+/* 194 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -24419,7 +24215,7 @@
 	}
 
 /***/ },
-/* 198 */
+/* 195 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24447,7 +24243,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 199 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24484,7 +24280,7 @@
 		}
 	};
 	
-	var _constants = __webpack_require__(182);
+	var _constants = __webpack_require__(197);
 	
 	var _constants2 = _interopRequireDefault(_constants);
 	
@@ -24493,6 +24289,118 @@
 	var initialState = {
 		invites: {},
 		invitesArray: []
+	};
+
+/***/ },
+/* 197 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = {
+	
+		INVITES_RECEIVED: 'INVITES_RECEIVED',
+		INVITE_CREATED: 'INVITE_CREATED',
+	
+		PROFILES_RECEIVED: 'PROFILES_RECEIVED',
+		PROFILE_CREATED: 'PROFILE_CREATED'
+	
+	};
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function () {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+	    var action = arguments[1];
+	
+	    switch (action.type) {
+	        case _constants2.default.PROFILES_RECEIVED:
+	            console.log('PROFILES RECEIVED: ' + JSON.stringify(action.profiles));
+	            var newState = Object.assign({}, state);
+	            var array = [];
+	            for (var i = 0; i < action.profiles.length; i++) {
+	                var p = action.profiles[i];
+	                array.push(p);
+	            }
+	            newState['profilesArray'] = array;
+	            return newState;
+	
+	        case _constants2.default.PROFILE_CREATED:
+	            // console.log('PROFILES CREATED: '+JSON.stringify(action.profiles))
+	            var newState = Object.assign({}, state);
+	            var array = Object.assign([], newState.profilesArray);
+	            array.push(action.profile);
+	            newState['profilesArray'] = array;
+	            return newState;
+	
+	        default:
+	            return state;
+	    }
+	};
+	
+	var _constants = __webpack_require__(197);
+	
+	var _constants2 = _interopRequireDefault(_constants);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var initialState = {
+	    profiles: {},
+	    profilesArray: []
+	};
+
+/***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _constants = __webpack_require__(197);
+	
+	var _constants2 = _interopRequireDefault(_constants);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+		invitesReceived: function invitesReceived(invites) {
+			return {
+				type: _constants2.default.INVITES_RECEIVED,
+				invites: invites
+			};
+		},
+	
+		inviteCreated: function inviteCreated(invite) {
+			return {
+				type: _constants2.default.INVITE_CREATED,
+				invite: invite
+			};
+		},
+	
+		profilesReceived: function profilesReceived(profiles) {
+			return {
+				type: _constants2.default.PROFILES_RECEIVED,
+				profiles: profiles
+			};
+		},
+	
+		profileCreated: function profileCreated(profile) {
+			return {
+				type: _constants2.default.PROFILE_CREATED,
+				profile: profile
+			};
+		}
 	};
 
 /***/ },
@@ -24675,7 +24583,7 @@
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _isPlainObject = __webpack_require__(186);
+	var _isPlainObject = __webpack_require__(183);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
@@ -25085,7 +24993,7 @@
 	exports.__esModule = true;
 	exports["default"] = wrapActionCreators;
 	
-	var _redux = __webpack_require__(184);
+	var _redux = __webpack_require__(181);
 	
 	function wrapActionCreators(actionCreators) {
 	  return function (dispatch) {
@@ -25214,48 +25122,141 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+		value: true
 	});
 	
-	exports.default = function () {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
-	    var action = arguments[1];
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	    switch (action.type) {
-	        case _constants2.default.PROFILES_RECEIVED:
-	            console.log('PROFILES RECEIVED: ' + JSON.stringify(action.profiles));
-	            var newState = Object.assign({}, state);
-	            var array = [];
-	            for (var i = 0; i < action.profiles.length; i++) {
-	                var p = action.profiles[i];
-	                array.push(p);
-	            }
-	            newState['profilesArray'] = array;
-	            return newState;
+	var _react = __webpack_require__(1);
 	
-	        case _constants2.default.PROFILE_CREATED:
-	            // console.log('PROFILES CREATED: '+JSON.stringify(action.profiles))
-	            var newState = Object.assign({}, state);
-	            var array = Object.assign([], newState.profilesArray);
-	            array.push(action.profile);
-	            newState['profilesArray'] = array;
-	            return newState;
+	var _react2 = _interopRequireDefault(_react);
 	
-	        default:
-	            return state;
-	    }
-	};
+	var _APIManager = __webpack_require__(174);
 	
-	var _constants = __webpack_require__(182);
+	var _APIManager2 = _interopRequireDefault(_APIManager);
 	
-	var _constants2 = _interopRequireDefault(_constants);
+	var _actions = __webpack_require__(199);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	var _store = __webpack_require__(180);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _reactRedux = __webpack_require__(200);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var initialState = {
-	    profiles: {},
-	    profilesArray: []
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Invites = function (_Component) {
+		_inherits(Invites, _Component);
+	
+		function Invites(props, context) {
+			_classCallCheck(this, Invites);
+	
+			var _this = _possibleConstructorReturn(this, (Invites.__proto__ || Object.getPrototypeOf(Invites)).call(this, props, context));
+	
+			_this.updateInvite = _this.updateInvite.bind(_this);
+			_this.submit = _this.submit.bind(_this);
+			_this.state = {
+				invite: {
+					startTime: '',
+					endTime: '',
+					location: ''
+				}
+			};
+			return _this;
+		}
+	
+		_createClass(Invites, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				// console.log('componentDidMount: ')
+				_APIManager2.default.handleGet('/api/invite', null, function (err, response) {
+					if (err) {
+						alert(err);
+						return;
+					}
+					_store2.default.dispatch(_actions2.default.invitesReceived(response.results));
+					// console.log('componentDidMount: '+JSON.stringify(response.results))
+				});
+			}
+		}, {
+			key: 'updateInvite',
+			value: function updateInvite(event) {
+				console.log('updateInvite: ' + event.target.id + ' -- ' + event.target.value);
+				var updatedInvite = Object.assign({}, this.state.invite);
+				updatedInvite[event.target.id] = event.target.value;
+				this.setState({
+					invite: updatedInvite
+				});
+			}
+		}, {
+			key: 'submit',
+			value: function submit() {
+				//console.log('submit: '+JSON.stringify(this.state.invite))
+				_APIManager2.default.handlePost('/api/invite', this.state.invite, function (err, response) {
+					if (err) {
+						alert(err);
+						return;
+					}
+	
+					// console.log('Invite Created: '+JSON.stringify(response.result))
+					_store2.default.dispatch(_actions2.default.inviteCreated(response.result));
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+	
+				var invitesList = this.props.invites.map(function (invite, i) {
+					return _react2.default.createElement(
+						'li',
+						{ key: invite.id },
+						invite.location
+					);
+				});
+	
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h3',
+						null,
+						'This is Invites component!'
+					),
+					_react2.default.createElement('input', { onChange: this.updateInvite, id: 'startTime', name: 'startTime', placeholder: 'Start time', type: 'text' }),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement('input', { onChange: this.updateInvite, id: 'endTime', name: 'endTime', placeholder: 'End time', type: 'text' }),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement('input', { onChange: this.updateInvite, id: 'location', name: 'location', placeholder: 'Location', type: 'text' }),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(
+						'button',
+						{ onClick: this.submit },
+						'Submit'
+					),
+					invitesList
+				);
+			}
+		}]);
+	
+		return Invites;
+	}(_react.Component);
+	
+	var stateToProps = function stateToProps(state) {
+	
+		return {
+			invites: state.inviteReducer.invitesArray
+		};
 	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps)(Invites);
 
 /***/ },
 /* 210 */

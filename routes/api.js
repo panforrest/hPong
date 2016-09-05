@@ -66,6 +66,7 @@ router.get('/:resource/:id', function(req, res, next) {
     })
 });
 
+
 router.post('/:resource', function(req, res, next) {
 
 	var resource = req.params.resource

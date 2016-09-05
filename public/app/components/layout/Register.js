@@ -38,8 +38,8 @@ class Register extends Component {
     			return
     		}
             
-            console.log('componentDidMount: '+JSON.stringify(response.results))
-            store.dispatch(actions.profilesReceived(response.results))
+            //console.log('componentDidMount: '+JSON.stringify(response.results))
+            //store.dispatch(actions.profilesReceived(response.results))
             
     	})
     }
@@ -53,7 +53,8 @@ class Register extends Component {
     		}
 
     		console.log('Profile Registered: '+JSON.stringify(response.result))
-            store.dispatch(actions.profileCreated(response.result))
+            //store.dispatch(actions.profileCreated(response.result))
+            window.location.href = '/account'
     	})
     }
 

@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(sessions({
-  cookieNaem: 'session',
+  cookieName: 'session',
   secret: 'ajajfjwfajwef',
   duration: 24*60860*1000,
   activeDuration: 30*60*1000
