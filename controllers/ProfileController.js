@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
 var Profile = require('../models/Profile')
+var bcrypt = require('bcrypt')
 
 
 
@@ -59,6 +60,9 @@ module.exports = {
     },
 
     post: function(profileInfo, completion){
+        var password = profileInfo['password']
+        profileInfo['password'] = bcrypt.hashSync(password, 10)
+
     	Profile.create(profileInfo, function(err, profile){
     		if (err) {
     			completion({confirmation: 'fail', message: err.message}, null)

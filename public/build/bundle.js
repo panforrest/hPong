@@ -21604,8 +21604,13 @@
 	        _this.updateProfile = _this.updateProfile.bind(_this);
 	        _this.submit = _this.submit.bind(_this);
 	        _this.login = _this.login.bind(_this);
+	        _this.updateCredentials = _this.updateCredentials.bind(_this);
 	        _this.state = {
 	            user: {
+	                userName: '',
+	                password: ''
+	            },
+	            credentials: {
 	                userName: '',
 	                password: ''
 	            }
@@ -21640,18 +21645,28 @@
 	            });
 	        }
 	    }, {
+	        key: 'updateCredentials',
+	        value: function updateCredentials(event) {
+	            console.log('updateCredentials: ' + event.target.id + ' -- ' + event.target.value);
+	            var updatedCredentials = Object.assign({}, this.state.credentials);
+	            updatedCredentials[event.target.id] = event.target.value;
+	            this.setState({
+	                credentials: updatedCredentials
+	            });
+	        }
+	    }, {
 	        key: 'login',
 	        value: function login(event) {
 	            event.preventDefault();
-	            // console.log('LOGIN: '+JSON.stringify(this.state.user))
+	            console.log('LOGIN: ' + JSON.stringify(this.state.credentials));
 	
-	            _APIManager2.default.handlePost('/account/login', this.state.user, function (err, response) {
-	                if (err) {
+	            _APIManager2.default.handlePost('/account/login', this.state.credentials, function (err, response) {
+	                if (err != null) {
 	                    alert(err.message);
 	                    return;
 	                }
 	
-	                console.log('LOGIN: ' + JSON.stringify(response));
+	                console.log('LOGGED IN: ' + JSON.stringify(response));
 	                window.location.href = '/account';
 	            });
 	        }
@@ -21676,9 +21691,9 @@
 	                    'Submit'
 	                ),
 	                _react2.default.createElement('br', null),
-	                _react2.default.createElement('input', { onChange: this.updateProfile, type: 'text', id: 'userName', placeholder: 'User Name' }),
+	                _react2.default.createElement('input', { onChange: this.updateCredentials, type: 'text', id: 'userName', placeholder: 'User Name' }),
 	                _react2.default.createElement('br', null),
-	                _react2.default.createElement('input', { onChange: this.updateProfile, type: 'text', id: 'password', placeholder: 'Password' }),
+	                _react2.default.createElement('input', { onChange: this.updateCredentials, type: 'text', id: 'password', placeholder: 'Password' }),
 	                _react2.default.createElement('br', null),
 	                _react2.default.createElement(
 	                    'button',
@@ -21701,7 +21716,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _superagent = __webpack_require__(175);
@@ -21712,42 +21727,55 @@
 	
 	exports.default = {
 	
-	  handleGet: function handleGet(endpoint, params, completion) {
-	    _superagent2.default.get(endpoint).query(params).set('Accept', 'application/jason').end(function (err, res) {
-	      if (err) {
-	        if (completion != null) completion(err, null);
-	        return;
-	      }
+	    handleGet: function handleGet(endpoint, params, completion) {
+	        _superagent2.default.get(endpoint).query(params).set('Accept', 'application/json').end(function (err, res) {
+	            if (err) {
+	                if (completion != null) completion(err, null);
+	                return;
+	            }
 	
-	      if (completion != null) {
-	        if (res.body.confirmation == 'success') {
-	          completion(null, res.body);
-	        } else {
-	          completion({ message: res.body.message }, null);
-	        }
-	      }
-	    });
-	  },
+	            if (completion != null) {
+	                if (res.body.confirmation == 'success') {
+	                    completion(null, res.body);
+	                } else {
+	                    completion({ message: res.body.message }, null);
+	                }
+	            }
+	        });
+	    },
 	
-	  handlePost: function handlePost(endpoint, body, completion) {
-	    _superagent2.default.post(endpoint).send(body).set('Accept', 'application/json').end(function (err, res) {
-	      if (err) {
-	        if (completion != null) completion = (err, null);
-	      } else {
-	        if (completion != null) completion(null, res.body);
-	      }
-	    });
-	  },
+	    // using superagent here because for some reason, cookies don't get installed using fetch (wtf)
+	    handlePost: function handlePost(endpoint, body, completion) {
+	        _superagent2.default.post(endpoint).send(body).set('Accept, applicaiton/json').end(function (err, res) {
+	            if (err) {
+	                if (completion != null) completion(err, null);
 	
-	  handlePut: function handlePut(endpoint, body, completion) {
-	    _superagent2.default.put(endpoint).send(body).set('Accept', 'application/json').end(function (err, res) {
-	      if (err) {
-	        if (completion != null) completion(err, null);
-	      } else {
-	        if (completion != null) completion(null, res.body);
-	      }
-	    });
-	  }
+	                return;
+	            }
+	            // else {
+	            //  if (completion != null)
+	            //      completion(null, res.body)              
+	            // }
+	
+	            if (completion != null) {
+	                if (res.body.confirmation == 'success') {
+	                    completion(null, res.body);
+	                } else {
+	                    completion({ message: res.body.message }, null);
+	                }
+	            }
+	        });
+	    },
+	
+	    handlePut: function handlePut(endpoint, body, completion) {
+	        _superagent2.default.put(endpoint).send(body).set('Accept', 'application/json').end(function (err, res) {
+	            if (err) {
+	                if (completion != null) completion(err, null);
+	            } else {
+	                if (completion != null) completion(null, res.body);
+	            }
+	        });
+	    }
 	
 	};
 

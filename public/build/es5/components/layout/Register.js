@@ -25,8 +25,13 @@ var Register = (function (Component) {
         this.updateProfile = this.updateProfile.bind(this);
         this.submit = this.submit.bind(this);
         this.login = this.login.bind(this);
+        this.updateCredentials = this.updateCredentials.bind(this);
         this.state = {
             user: {
+                userName: "",
+                password: ""
+            },
+            credentials: {
                 userName: "",
                 password: ""
             }
@@ -66,18 +71,30 @@ var Register = (function (Component) {
             writable: true,
             configurable: true
         },
+        updateCredentials: {
+            value: function updateCredentials(event) {
+                console.log("updateCredentials: " + event.target.id + " -- " + event.target.value);
+                var updatedCredentials = Object.assign({}, this.state.credentials);
+                updatedCredentials[event.target.id] = event.target.value;
+                this.setState({
+                    credentials: updatedCredentials
+                });
+            },
+            writable: true,
+            configurable: true
+        },
         login: {
             value: function login(event) {
                 event.preventDefault();
-                // console.log('LOGIN: '+JSON.stringify(this.state.user))
+                console.log("LOGIN: " + JSON.stringify(this.state.credentials));
 
-                APIManager.handlePost("/account/login", this.state.user, function (err, response) {
-                    if (err) {
+                APIManager.handlePost("/account/login", this.state.credentials, function (err, response) {
+                    if (err != null) {
                         alert(err.message);
                         return;
                     }
 
-                    console.log("LOGIN: " + JSON.stringify(response));
+                    console.log("LOGGED IN: " + JSON.stringify(response));
                     window.location.href = "/account";
                 });
             },
@@ -104,9 +121,9 @@ var Register = (function (Component) {
                         "Submit"
                     ),
                     React.createElement("br", null),
-                    React.createElement("input", { onChange: this.updateProfile, type: "text", id: "userName", placeholder: "User Name" }),
+                    React.createElement("input", { onChange: this.updateCredentials, type: "text", id: "userName", placeholder: "User Name" }),
                     React.createElement("br", null),
-                    React.createElement("input", { onChange: this.updateProfile, type: "text", id: "password", placeholder: "Password" }),
+                    React.createElement("input", { onChange: this.updateCredentials, type: "text", id: "password", placeholder: "Password" }),
                     React.createElement("br", null),
                     React.createElement(
                         "button",

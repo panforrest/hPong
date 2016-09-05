@@ -8,11 +8,16 @@ class Register extends Component {
     	this.updateProfile = this.updateProfile.bind(this)
     	this.submit = this.submit.bind(this)
         this.login = this.login.bind(this)
+        this.updateCredentials = this.updateCredentials.bind(this)
     	this.state = {
     		user: {
     			userName:'',
     			password:''
-    		}
+    		},
+            credentials: {
+                userName:'',
+                password:''
+            }
  
     	}   	
     }
@@ -41,17 +46,26 @@ class Register extends Component {
         })
     }
 
+    updateCredentials(event){
+        console.log('updateCredentials: '+event.target.id+' -- '+event.target.value)
+        var updatedCredentials = Object.assign({}, this.state.credentials)
+        updatedCredentials[event.target.id] = event.target.value
+        this.setState({
+            credentials: updatedCredentials
+        })
+    }
+
     login(event){
         event.preventDefault()
-        // console.log('LOGIN: '+JSON.stringify(this.state.user))
+        console.log('LOGIN: '+JSON.stringify(this.state.credentials))
 
-        APIManager.handlePost('/account/login', this.state.user, function(err, response){
-            if (err) {
+        APIManager.handlePost('/account/login', this.state.credentials, function(err, response){
+            if (err != null) {
                 alert(err.message)
                 return
             }
 
-            console.log('LOGIN: '+JSON.stringify(response))
+            console.log('LOGGED IN: '+JSON.stringify(response))
             window.location.href ='/account'
         })
     }
@@ -65,8 +79,8 @@ class Register extends Component {
                 <button onClick={this.submit}>Submit</button><br />
 
 
-                <input onChange={this.updateProfile} type="text" id="userName" placeholder="User Name" /><br />
-                <input onChange={this.updateProfile} type="text" id="password" placeholder="Password" /><br />
+                <input onChange={this.updateCredentials} type="text" id="userName" placeholder="User Name" /><br />
+                <input onChange={this.updateCredentials} type="text" id="password" placeholder="Password" /><br />
                 <button onClick={this.login}>Login</button>
              
 			</div>
