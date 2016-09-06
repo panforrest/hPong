@@ -25462,7 +25462,7 @@
 /* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -25492,12 +25492,85 @@
 		}
 	
 		_createClass(Nav, [{
-			key: 'render',
+			key: "render",
 			value: function render() {
 				return _react2.default.createElement(
-					'div',
-					null,
-					'This is Nav Component!'
+					"header",
+					{ id: "header", className: "transparent-header dark" },
+					_react2.default.createElement(
+						"div",
+						{ id: "header-wrap" },
+						_react2.default.createElement(
+							"div",
+							{ className: "container clearfix" },
+							_react2.default.createElement(
+								"div",
+								{ id: "primary-menu-trigger" },
+								_react2.default.createElement("i", { className: "icon-reorder" })
+							),
+							_react2.default.createElement(
+								"div",
+								{ id: "logo" },
+								_react2.default.createElement(
+									"a",
+									{ href: "/", className: "standard-logo", "data-dark-logo": "/images/logo-dark.png" },
+									_react2.default.createElement("img", { src: "/images/logo.png", alt: "Canvas Logo" })
+								),
+								_react2.default.createElement(
+									"a",
+									{ href: "/", className: "retina-logo", "data-dark-logo": "/images/logo-dark@2x.png" },
+									_react2.default.createElement("img", { src: "/images/logo@2x.png", alt: "Canvas Logo" })
+								)
+							),
+							_react2.default.createElement(
+								"nav",
+								{ id: "primary-menu" },
+								_react2.default.createElement(
+									"ul",
+									null,
+									_react2.default.createElement(
+										"li",
+										null,
+										_react2.default.createElement(
+											"a",
+											{ href: "/" },
+											_react2.default.createElement(
+												"div",
+												null,
+												"Home"
+											)
+										)
+									),
+									_react2.default.createElement(
+										"li",
+										null,
+										_react2.default.createElement(
+											"a",
+											{ href: "/register" },
+											_react2.default.createElement(
+												"div",
+												null,
+												"Register"
+											)
+										)
+									),
+									_react2.default.createElement(
+										"li",
+										null,
+										_react2.default.createElement(
+											"a",
+											{ href: "/" },
+											_react2.default.createElement(
+												"div",
+												null,
+												"Home"
+											)
+										)
+									)
+								)
+							)
+						)
+					)
 				);
 			}
 		}]);

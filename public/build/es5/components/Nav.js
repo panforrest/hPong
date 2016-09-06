@@ -28,9 +28,82 @@ var Nav = (function (Component) {
 		render: {
 			value: function render() {
 				return React.createElement(
-					"div",
-					null,
-					"This is Nav Component!"
+					"header",
+					{ id: "header", className: "transparent-header dark" },
+					React.createElement(
+						"div",
+						{ id: "header-wrap" },
+						React.createElement(
+							"div",
+							{ className: "container clearfix" },
+							React.createElement(
+								"div",
+								{ id: "primary-menu-trigger" },
+								React.createElement("i", { className: "icon-reorder" })
+							),
+							React.createElement(
+								"div",
+								{ id: "logo" },
+								React.createElement(
+									"a",
+									{ href: "/", className: "standard-logo", "data-dark-logo": "/images/logo-dark.png" },
+									React.createElement("img", { src: "/images/logo.png", alt: "Canvas Logo" })
+								),
+								React.createElement(
+									"a",
+									{ href: "/", className: "retina-logo", "data-dark-logo": "/images/logo-dark@2x.png" },
+									React.createElement("img", { src: "/images/logo@2x.png", alt: "Canvas Logo" })
+								)
+							),
+							React.createElement(
+								"nav",
+								{ id: "primary-menu" },
+								React.createElement(
+									"ul",
+									null,
+									React.createElement(
+										"li",
+										null,
+										React.createElement(
+											"a",
+											{ href: "/" },
+											React.createElement(
+												"div",
+												null,
+												"Home"
+											)
+										)
+									),
+									React.createElement(
+										"li",
+										null,
+										React.createElement(
+											"a",
+											{ href: "/register" },
+											React.createElement(
+												"div",
+												null,
+												"Register"
+											)
+										)
+									),
+									React.createElement(
+										"li",
+										null,
+										React.createElement(
+											"a",
+											{ href: "/" },
+											React.createElement(
+												"div",
+												null,
+												"Home"
+											)
+										)
+									)
+								)
+							)
+						)
+					)
 				);
 			},
 			writable: true,
