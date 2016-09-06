@@ -19,6 +19,8 @@ var Invites = _interopRequire(require("./Invites"));
 
 var Account = _interopRequire(require("./layout/Account"));
 
+var Nav = _interopRequire(require("./Nav"));
+
 var Main = (function (Component) {
   function Main() {
     _classCallCheck(this, Main);
@@ -51,6 +53,7 @@ var Main = (function (Component) {
         return React.createElement(
           "div",
           null,
+          React.createElement(Nav, null),
           content
         );
       },
