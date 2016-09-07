@@ -21,6 +21,8 @@ var Account = _interopRequire(require("./layout/Account"));
 
 var Nav = _interopRequire(require("./Nav"));
 
+var Footer = _interopRequire(require("./Footer"));
+
 var Main = (function (Component) {
   function Main() {
     _classCallCheck(this, Main);
@@ -54,7 +56,8 @@ var Main = (function (Component) {
           "div",
           null,
           React.createElement(Nav, null),
-          content
+          content,
+          React.createElement(Footer, null)
         );
       },
       writable: true,

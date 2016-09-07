@@ -3,6 +3,7 @@ import Register from './layout/Register'
 import Invites from './Invites'
 import Account from './layout/Account'
 import Nav from './Nav'
+import Footer from './Footer'
 
 class Main extends Component {
 
@@ -26,7 +27,7 @@ class Main extends Component {
 			<div>
 			    <Nav />
 			    {content}
-  
+                <Footer />
             </div>
 		)
 	}
