@@ -24,6 +24,8 @@ var actions = _interopRequire(require("../../actions/actions"));
 var connect = require("react-redux").connect;
 var accountReducer = _interopRequire(require("../../reducers/accountReducer"));
 
+var Nav = _interopRequire(require("../../components/Nav"));
+
 var Account = (function (Component) {
 	function Account(props, context) {
 		_classCallCheck(this, Account);
@@ -84,7 +86,7 @@ var Account = (function (Component) {
 				return React.createElement(
 					"div",
 					null,
-					"This is Account component!",
+					React.createElement(Nav, null),
 					React.createElement(
 						"h1",
 						null,

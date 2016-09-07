@@ -19,8 +19,7 @@ var Invites = _interopRequire(require("./Invites"));
 
 var Account = _interopRequire(require("./layout/Account"));
 
-var Nav = _interopRequire(require("./Nav"));
-
+// import Nav from './Nav'
 var Footer = _interopRequire(require("./Footer"));
 
 var Main = (function (Component) {
@@ -55,7 +54,6 @@ var Main = (function (Component) {
         return React.createElement(
           "div",
           null,
-          React.createElement(Nav, null),
           content,
           React.createElement(Footer, null)
         );

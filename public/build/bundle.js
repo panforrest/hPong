@@ -21519,10 +21519,6 @@
 	
 	var _Account2 = _interopRequireDefault(_Account);
 	
-	var _Nav = __webpack_require__(212);
-	
-	var _Nav2 = _interopRequireDefault(_Nav);
-	
 	var _Footer = __webpack_require__(213);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
@@ -21534,6 +21530,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	// import Nav from './Nav'
+	
 	
 	var Main = function (_Component) {
 	  _inherits(Main, _Component);
@@ -21563,7 +21561,6 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Nav2.default, null),
 	        content,
 	        _react2.default.createElement(_Footer2.default, null)
 	      );
@@ -21594,6 +21591,10 @@
 	var _APIManager = __webpack_require__(174);
 	
 	var _APIManager2 = _interopRequireDefault(_APIManager);
+	
+	var _Nav = __webpack_require__(212);
+	
+	var _Nav2 = _interopRequireDefault(_Nav);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21686,6 +21687,7 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
+	                _react2.default.createElement(_Nav2.default, null),
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
@@ -23380,6 +23382,10 @@
 	
 	var _reactRedux = __webpack_require__(202);
 	
+	var _Nav = __webpack_require__(212);
+	
+	var _Nav2 = _interopRequireDefault(_Nav);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23460,6 +23466,7 @@
 				return _react2.default.createElement(
 					'div',
 					{ className: 'container clearfix' },
+					_react2.default.createElement(_Nav2.default, null),
 					_react2.default.createElement(
 						'div',
 						{ className: 'col_three_fifth bothsidebar nobottommargin' },
@@ -25436,6 +25443,10 @@
 	
 	var _accountReducer2 = _interopRequireDefault(_accountReducer);
 	
+	var _Nav = __webpack_require__(212);
+	
+	var _Nav2 = _interopRequireDefault(_Nav);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25503,7 +25514,7 @@
 				return _react2.default.createElement(
 					'div',
 					null,
-					'This is Account component!',
+					_react2.default.createElement(_Nav2.default, null),
 					_react2.default.createElement(
 						'h1',
 						null,

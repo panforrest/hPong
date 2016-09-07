@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Register from './layout/Register'
 import Invites from './Invites'
 import Account from './layout/Account'
-import Nav from './Nav'
+// import Nav from './Nav'
 import Footer from './Footer'
 
 class Main extends Component {
@@ -25,7 +25,7 @@ class Main extends Component {
 
 		return(
 			<div>
-			    <Nav />
+			   
 			    {content}
                 <Footer />
             </div>

@@ -3,6 +3,7 @@ import APIManager from '../utils/APIManager'
 import actions from '../actions/actions'
 import store from '../stores/store'
 import { connect } from 'react-redux'
+import Nav from './Nav'
 
 class Invites extends Component {
 
@@ -62,7 +63,7 @@ class Invites extends Component {
 
 		return(
 			<div className="container clearfix">
-
+                <Nav />
 
 			        
 

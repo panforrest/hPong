@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import APIManager from '../../utils/APIManager'
+import Nav from '../../components/Nav'
 
 class Register extends Component {
 
@@ -73,6 +74,7 @@ class Register extends Component {
 	render() {
 		return(
 			<div>
+                <Nav />
 			    <h3>Register page</h3>
                 <input onChange={this.updateProfile} type="text" id="userName" placeholder="User Name" /><br />
                 <input onChange={this.updateProfile} type="text" id="password" placeholder="Password" /><br />

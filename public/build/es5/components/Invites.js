@@ -22,6 +22,8 @@ var actions = _interopRequire(require("../actions/actions"));
 var store = _interopRequire(require("../stores/store"));
 
 var connect = require("react-redux").connect;
+var Nav = _interopRequire(require("./Nav"));
+
 var Invites = (function (Component) {
 	function Invites(props, context) {
 		_classCallCheck(this, Invites);
@@ -96,6 +98,7 @@ var Invites = (function (Component) {
 				return React.createElement(
 					"div",
 					{ className: "container clearfix" },
+					React.createElement(Nav, null),
 					React.createElement(
 						"div",
 						{ className: "col_three_fifth bothsidebar nobottommargin" },
