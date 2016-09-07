@@ -23459,11 +23459,80 @@
 	
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ className: 'container clearfix' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'col_three_fifth bothsidebar nobottommargin' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'fancy-title title-border' },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'Invites'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ id: 'posts', className: 'events small-thumb' },
+							invitesList
+						)
+					),
 					_react2.default.createElement(
 						'h3',
 						null,
-						'This is Invites component!'
+						'Sign up'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'col_one_third nobottommargin' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'well well-lg nobottommargin' },
+							_react2.default.createElement(
+								'form',
+								{ id: 'login-form', name: 'login-form', className: 'nobottommargin', action: '#', method: 'post' },
+								_react2.default.createElement(
+									'h3',
+									null,
+									'Login to your Account'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'col_full' },
+									_react2.default.createElement(
+										'label',
+										{ 'for': 'login-form-username' },
+										'Username:'
+									),
+									_react2.default.createElement('input', { type: 'text', id: 'login-form-username', name: 'login-form-username', value: '', className: 'required form-control input-block-level' })
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'col_full' },
+									_react2.default.createElement(
+										'label',
+										{ 'for': 'login-form-password' },
+										'Password:'
+									),
+									_react2.default.createElement('input', { type: 'password', id: 'login-form-password', name: 'login-form-password', value: '', className: 'required form-control input-block-level' })
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'col_full nobottommargin' },
+									_react2.default.createElement(
+										'button',
+										{ className: 'button button-3d nomargin', id: 'login-form-submit', name: 'login-form-submit', value: 'login' },
+										'Login'
+									),
+									_react2.default.createElement(
+										'a',
+										{ href: '#', className: 'fright' },
+										'Forgot Password?'
+									)
+								)
+							)
+						)
 					),
 					_react2.default.createElement('input', { onChange: this.updateInvite, id: 'startTime', name: 'startTime', placeholder: 'Start time', type: 'text' }),
 					_react2.default.createElement('br', null),
@@ -23475,8 +23544,7 @@
 						'button',
 						{ onClick: this.submit },
 						'Submit'
-					),
-					invitesList
+					)
 				);
 			}
 		}]);

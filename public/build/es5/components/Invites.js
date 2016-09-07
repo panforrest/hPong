@@ -95,11 +95,80 @@ var Invites = (function (Component) {
 
 				return React.createElement(
 					"div",
-					null,
+					{ className: "container clearfix" },
+					React.createElement(
+						"div",
+						{ className: "col_three_fifth bothsidebar nobottommargin" },
+						React.createElement(
+							"div",
+							{ className: "fancy-title title-border" },
+							React.createElement(
+								"h3",
+								null,
+								"Invites"
+							)
+						),
+						React.createElement(
+							"div",
+							{ id: "posts", className: "events small-thumb" },
+							invitesList
+						)
+					),
 					React.createElement(
 						"h3",
 						null,
-						"This is Invites component!"
+						"Sign up"
+					),
+					React.createElement(
+						"div",
+						{ className: "col_one_third nobottommargin" },
+						React.createElement(
+							"div",
+							{ className: "well well-lg nobottommargin" },
+							React.createElement(
+								"form",
+								{ id: "login-form", name: "login-form", className: "nobottommargin", action: "#", method: "post" },
+								React.createElement(
+									"h3",
+									null,
+									"Login to your Account"
+								),
+								React.createElement(
+									"div",
+									{ className: "col_full" },
+									React.createElement(
+										"label",
+										{ "for": "login-form-username" },
+										"Username:"
+									),
+									React.createElement("input", { type: "text", id: "login-form-username", name: "login-form-username", value: "", className: "required form-control input-block-level" })
+								),
+								React.createElement(
+									"div",
+									{ className: "col_full" },
+									React.createElement(
+										"label",
+										{ "for": "login-form-password" },
+										"Password:"
+									),
+									React.createElement("input", { type: "password", id: "login-form-password", name: "login-form-password", value: "", className: "required form-control input-block-level" })
+								),
+								React.createElement(
+									"div",
+									{ className: "col_full nobottommargin" },
+									React.createElement(
+										"button",
+										{ className: "button button-3d nomargin", id: "login-form-submit", name: "login-form-submit", value: "login" },
+										"Login"
+									),
+									React.createElement(
+										"a",
+										{ href: "#", className: "fright" },
+										"Forgot Password?"
+									)
+								)
+							)
+						)
 					),
 					React.createElement("input", { onChange: this.updateInvite, id: "startTime", name: "startTime", placeholder: "Start time", type: "text" }),
 					React.createElement("br", null),
@@ -111,8 +180,7 @@ var Invites = (function (Component) {
 						"button",
 						{ onClick: this.submit },
 						"Submit"
-					),
-					invitesList
+					)
 				);
 			},
 			writable: true,
